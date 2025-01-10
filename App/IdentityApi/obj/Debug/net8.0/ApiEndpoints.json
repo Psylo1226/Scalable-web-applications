@@ -1,0 +1,12 @@
+[
+  {
+    "ContainingType": "IdentityApi.Controllers.AuthController",
+    "Method": "Get",
+    "RelativePath": "api/Auth",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
