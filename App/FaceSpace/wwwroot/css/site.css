@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -20,3 +20,59 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+form {
+    max-width: 400px; 
+    margin: 20px auto; 
+    padding: 20px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    background-color: #f9f9f9; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+    form .form-group {
+        margin-bottom: 15px; 
+    }
+
+    form label {
+        font-weight: bold; 
+        display: block;
+        margin-bottom: 5px; 
+    }
+
+    form input {
+        width: 100%; 
+        padding: 10px;
+        border: 1px solid #ccc; 
+        border-radius: 4px; 
+        box-sizing: border-box; 
+        font-size: 14px; 
+    }
+
+        form input:focus {
+            border-color: #258cfb; 
+            box-shadow: 0 0 5px rgba(37, 140, 251, 0.5); 
+            outline: none; 
+        }
+
+    form button {
+        display: block;
+        width: 100%; 
+        padding: 10px; 
+        font-size: 16px; 
+        background-color: #258cfb;
+        color: white; 
+        border: none; 
+        border-radius: 4px; 
+        cursor: pointer; 
+    }
+
+        form button:hover {
+            background-color: #1b6fd1; 
+        }
+
+        form button:focus {
+            box-shadow: 0 0 5px rgba(37, 140, 251, 0.7); 
+            outline: none; 
+        }
