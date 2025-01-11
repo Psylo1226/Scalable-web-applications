@@ -76,3 +76,9 @@ form {
             box-shadow: 0 0 5px rgba(37, 140, 251, 0.7); 
             outline: none; 
         }
+.navbar-brand img {
+    height: 60px; 
+    width: auto;
+    margin-right: 10px; 
+    vertical-align: middle; 
+}

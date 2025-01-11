@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\img\\logo.webp",
+      "PackagePath": "staticwebassets\\img\\logo.webp"
+    },
+    {
       "Id": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

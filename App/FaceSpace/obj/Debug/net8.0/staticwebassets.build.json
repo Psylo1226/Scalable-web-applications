@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2nSWZ86ryv9eT3yb4xO9rer4Q6PleMdqHf38bBzAjog=",
+  "Hash": "M16HFqxWCz2NA0sE8uLLVdyd1hB2pML0793UcJbmUg8=",
   "Source": "FaceSpace",
   "BasePath": "_content/FaceSpace",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\img\\logo.webp",
+      "SourceId": "FaceSpace",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\",
+      "BasePath": "_content/FaceSpace",
+      "RelativePath": "img/logo.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\logo.webp"
     },
     {
       "Identity": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\js\\site.js",
