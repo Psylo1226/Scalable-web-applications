@@ -20,6 +20,7 @@ body {
 main {
     flex: 1; /* Rozciągnij główną treść */
 
+
 }
 /* Efekt focusa np. dla .btn, inputów itp. */
 .btn:focus, .btn:active:focus,
@@ -93,55 +94,15 @@ form {
     margin-right: 10px;
     vertical-align: middle;
 }
-#particles-js {
-    display: block;
-/*    position: absolute;*/
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-}
-
 /* Kontener dla animacji */
 #particles-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 60px); /* Odejmij wysokość stopki */
-    z-index: -1;
-    background: linear-gradient(to bottom, #000428, #004e92); /* Gradient */
-    margin: 0;
-}
-
-
-/* Widoczność animacji tylko na stronie głównej */
-body.home-index #particles-js {
-    display: block;
 /*    position: absolute;*/
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-}
-
-/* Domyślnie ukryj animację na innych stronach */
-#particles-js {
-    display: none;
-}
-/* Kontener dla animacji */
-#particles-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100vh;*/
+/*    z-index: 0;*/
+/*    overflow: hidden;*/
     background: linear-gradient(to bottom, #000428, #004e92);
 }
 
@@ -164,14 +125,19 @@ body.home-index #particles-js {
 
 /* Kontener dla treści powitalnej */
 .welcome-container {
-    position: relative;
+    position: absolute;
     z-index: 1;
     text-align: center;
     color: white;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%,-50%);
+
 }
 
+.home-container {
+    background: linear-gradient(to bottom, #000428, #004e92);
+}
 /* Stopka */
 footer {
     position: relative;
@@ -179,3 +145,4 @@ footer {
     background-color: white;
     text-align: center;
 }
+

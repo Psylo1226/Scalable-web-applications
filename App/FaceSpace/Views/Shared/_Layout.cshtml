@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FaceSpace.styles.css" asp-append-version="true" />
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script> *@
 </head>
 
 <body class="@($"{ViewContext.RouteData.Values["controller"]?.ToString().ToLower()}-{ViewContext.RouteData.Values["action"]?.ToString().ToLower()}")">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/img/logo.webp" alt="FaceSpace Logo" />
@@ -48,15 +48,20 @@
     @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
     ViewContext.RouteData.Values["action"]?.ToString() == "Index")
     {
-        <div id="particles-js"></div>
-        <script src="~/js/particles-config.js"></script>
+        @* <div id="particles-js"></div> *@
+        <main role="main" class="pb-3 home-container">
+            @RenderBody()
+        </main>
+       
     }
-
-    <div class="container">
+    else
+{
+        <div class="container mt-3">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+}
 
     <footer class="border-top footer text-muted">
         <div class="container">
