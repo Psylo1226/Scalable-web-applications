@@ -7,17 +7,19 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FaceSpace.styles.css" asp-append-version="true" />
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
-<body>
+
+<body class="@($"{ViewContext.RouteData.Values["controller"]?.ToString().ToLower()}-{ViewContext.RouteData.Values["action"]?.ToString().ToLower()}")">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/logo.webp" alt="FaceSpace Logo"/>
+                    <img src="~/img/logo.webp" alt="FaceSpace Logo" />
                     FaceSpace
                 </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,13 +37,21 @@
                             <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Sign Up</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
+    ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+    {
+        <div id="particles-js"></div>
+        <script src="~/js/particles-config.js"></script>
+    }
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -59,3 +69,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
