@@ -108,19 +108,19 @@ form {
 
 /* Widoczność animacji tylko na stronie głównej */
 body.home-index #particles-js {
-    display: block;
+/*    display: block;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     z-index: -1;
-    overflow: hidden;
+    overflow: hidden;*/
 }
 
 /* Domyślnie ukryj animację na innych stronach */
 #particles-js {
-    display: none;
+/*    display: none;*/
 }
 
 /* Kontener dla treści powitalnej */
