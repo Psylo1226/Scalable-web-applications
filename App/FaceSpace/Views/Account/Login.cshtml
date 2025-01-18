@@ -42,7 +42,7 @@
                     const data = await response.text();
                     console.log("Login successful:", data);
                     alert('Login successful!');
-                    window.location.href = '/Home/Index';
+                    window.location.href = '/Home/Feed';
                 } else {
                     const error = await response.text();
                     console.error("Login failed:", error);
