@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Nowy Profil",
+    "Projects": [
+      {
+        "Path": "App\\FaceSpace\\FaceSpace.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "App\\IdentityApi\\IdentityApi.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

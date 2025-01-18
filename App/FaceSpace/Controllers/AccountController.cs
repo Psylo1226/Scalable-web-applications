@@ -4,12 +4,13 @@ namespace FaceSpace.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Login()
+        [HttpGet]
+        public IActionResult Register()
         {
             return View();
         }
-
-        public IActionResult Register()
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
         }

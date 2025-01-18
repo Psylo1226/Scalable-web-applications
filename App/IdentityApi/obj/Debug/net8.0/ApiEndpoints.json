@@ -1,12 +1,34 @@
 [
   {
     "ContainingType": "IdentityApi.Controllers.AuthController",
-    "Method": "Get",
-    "RelativePath": "api/Auth",
-    "HttpMethod": "GET",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "IdentityApi.Models.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IdentityApi.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "IdentityApi.Models.User",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]
