@@ -5014,11 +5014,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\staw2\\OneDrive\\Pulpit\\temp\\Scalable-web-applications\\App\\FaceSpace\\FaceSpace.csproj",
+      "projectUniqueName": "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\FaceSpace\\FaceSpace.csproj",
       "projectName": "FaceSpace",
-      "projectPath": "C:\\Users\\staw2\\OneDrive\\Pulpit\\temp\\Scalable-web-applications\\App\\FaceSpace\\FaceSpace.csproj",
+      "projectPath": "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\FaceSpace\\FaceSpace.csproj",
       "packagesPath": "C:\\Users\\staw2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\staw2\\OneDrive\\Pulpit\\temp\\Scalable-web-applications\\App\\FaceSpace\\obj\\",
+      "outputPath": "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\FaceSpace\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

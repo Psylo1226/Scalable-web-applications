@@ -1,6 +1,7 @@
 ﻿using IdentityApi.Data;
 using IdentityApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -23,6 +24,20 @@ namespace IdentityApi.Controllers
             if (_context.Users.Any(u => u.Username == user.Username))
             {
                 return BadRequest("Username already exists");
+            }
+
+            if (string.IsNullOrEmpty(user.Email)) 
+            {
+                return BadRequest("Email is required");
+            }
+
+            try
+            {
+                MailAddress m = new MailAddress(user.Email);
+            }
+            catch (FormatException)
+            {
+                return BadRequest("Invalid Email address");
             }
 
             user.PasswordHash = HashPassword(user.PasswordHash);
