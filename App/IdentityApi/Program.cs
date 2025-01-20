@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -20,9 +19,22 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader());
 });
 
+AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "App_Data"));
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();
+}
+
+var dataDirectory = Path.Combine(Directory.GetCurrentDirectory(), "App_Data");
+if (!Directory.Exists(dataDirectory))
+{
+    Directory.CreateDirectory(dataDirectory);
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
