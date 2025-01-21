@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\img\\avatar1.png",
+      "PackagePath": "staticwebassets\\img\\avatar1.png"
+    },
+    {
+      "Id": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\img\\avatar2.png",
+      "PackagePath": "staticwebassets\\img\\avatar2.png"
+    },
+    {
       "Id": "C:\\Users\\xjulc\\Desktop\\studia AGH\\semestr3\\Techniki tworzenia skalowalnych aplikacji webowych\\apka\\App\\FaceSpace\\wwwroot\\img\\logo.webp",
       "PackagePath": "staticwebassets\\img\\logo.webp"
     },

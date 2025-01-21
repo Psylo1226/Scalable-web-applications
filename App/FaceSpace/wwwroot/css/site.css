@@ -179,6 +179,29 @@ textarea, input {
     resize: none; /* Wyłącza możliwość zmiany rozmiaru pól tekstowych */
 }
 
+.profile-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-tabs .nav-tabs .nav-link {
+    font-weight: bold;
+    color: #495057;
+}
+
+    .profile-tabs .nav-tabs .nav-link.active {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+
+textarea.form-control {
+    resize: none;
+}
+
+
 
 
 
