@@ -22,13 +22,13 @@ namespace FaceSpace.Models
     {
         public string Name { get; set; } = "John Doe";
         public string Description { get; set; } = "Welcome to your profile!";
-        public string SelectedAvatar { get; set; } = "/img/avatars/avatar1.png";
+        public string SelectedAvatar { get; set; } = "/img/avatar1.png";
         public List<string> AvatarOptions { get; set; } = new List<string>
         {
-            "/img/avatars/avatar1.png",
-            "/img/avatars/avatar2.png",
-            "/img/avatars/avatar3.png",
-            "/img/avatars/avatar4.png"
+            "/img/avatar1.png",
+            "/img/avatar2.png",
+            "/img/avatar3.png",
+            "/img/avatar4.png"
         };
 
         // Nowe pole dla postów na timeline

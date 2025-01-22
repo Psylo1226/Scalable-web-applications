@@ -24,10 +24,10 @@ namespace FaceSpace.Controllers
             // Jeśli coś poszło nie tak, odtwórz listę awatarów
             model.AvatarOptions = new List<string>
             {
-                "/img/avatars/avatar1.png",
-                "/img/avatars/avatar2.png",
-                "/img/avatars/avatar3.png",
-                "/img/avatars/avatar4.png"
+                "/img/avatar1.png",
+                "/img/avatar2.png",
+                "/img/avatar3.png",
+                "/img/avatar4.png"
             };
 
             return View(model);
