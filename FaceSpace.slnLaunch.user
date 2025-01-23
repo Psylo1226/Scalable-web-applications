@@ -8,7 +8,11 @@
       },
       {
         "Path": "App\\IdentityApi\\IdentityApi.csproj",
-        "Action": "Start"
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "App\\PeopleApi\\PeopleApi.csproj",
+        "Action": "StartWithoutDebugging"
       }
     ]
   }

@@ -1,5 +1,7 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\img\avatar1.png
+wwwroot\img\avatar2.png
 wwwroot\img\logo.webp
 wwwroot\js\particles-config.js
 wwwroot\js\site.js

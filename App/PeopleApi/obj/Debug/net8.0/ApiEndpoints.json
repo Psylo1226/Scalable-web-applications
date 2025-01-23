@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "PeopleApi.Controllers.People",
+    "Method": "GetProfile",
+    "RelativePath": "api/People",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PeopleApi.Controllers.People",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/People/update",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "profileDto",
+        "Type": "PeopleApi.Controllers.UserProfileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
