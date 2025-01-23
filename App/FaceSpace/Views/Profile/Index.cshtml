@@ -108,7 +108,35 @@
 
         <!-- Friends -->
         <div class="tab-pane fade" id="friends">
-            <p>Friends section coming soon...</p>
+            <div id="friends-list">
+                <!-- Lista znajomych -->
+                <h5>Friend List (@Model.Friends.Count)</h5>
+                <div class="row">
+                    @foreach (var friend in Model.Friends)
+                    {
+                        <div class="col-md-6 mb-3 d-flex align-items-center">
+                            <img src="@friend.Avatar" alt="@friend.Name" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                            <span class="fw-bold flex-grow-1">@friend.Name</span>
+                            <button class="btn btn-danger btn-sm">Remove</button>
+                        </div>
+                    }
+                </div>
+
+                <!-- Lista sugerowanych znajomych -->
+                <h5 class="mt-4">Suggested Friends</h5>
+                <div class="row">
+                    @foreach (var suggestedFriend in Model.SuggestedFriends)
+                    {
+                        <div class="col-md-6 mb-3 d-flex align-items-center">
+                            <img src="@suggestedFriend.Avatar" alt="@suggestedFriend.Name" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                            <span class="fw-bold flex-grow-1">@suggestedFriend.Name</span>
+                            <button class="btn btn-primary btn-sm">Add Friend</button>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
+
+
     </div>
 </div>

@@ -201,6 +201,9 @@ textarea.form-control {
     resize: none;
 }
 
+img.rounded-circle {
+    border-radius: 50%;
+}
 
 
 
