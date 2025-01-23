@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FaceSpace")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1437bdb1ca2aca2d4e4a82193f77bee5c0e05a4a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11644356699e89755fe30901ae9223a4fb345d58")]
 [assembly: System.Reflection.AssemblyProductAttribute("FaceSpace")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FaceSpace")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
