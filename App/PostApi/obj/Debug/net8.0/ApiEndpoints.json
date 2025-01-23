@@ -1,0 +1,12 @@
+[
+  {
+    "ContainingType": "PostApi.Controllers.PostController",
+    "Method": "Get",
+    "RelativePath": "api/Post",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

@@ -1,5 +1,6 @@
 ﻿using IdentityApi.Data;
 using IdentityApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Security.Cryptography;
@@ -7,63 +8,54 @@ using System.Text;
 
 namespace IdentityApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UserRepository _userRepository;
 
-        public AuthController(ApplicationDbContext context)
+        public AuthController(UserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] User user)
         {
-            if (_context.Users.Any(u => u.Username == user.Username))
+            if (_userRepository.GetUserByUsername(user.Username) != null)
             {
-                return BadRequest("Username already exists");
+                return BadRequest(new { Message = "User already exists" });
             }
 
-            if (string.IsNullOrEmpty(user.Email)) 
-            {
-                return BadRequest("Email is required");
-            }
-
-            try
-            {
-                MailAddress m = new MailAddress(user.Email);
-            }
-            catch (FormatException)
-            {
-                return BadRequest("Invalid Email address");
-            }
-
+            // Tu można dodać hashowanie hasła np. z użyciem BCrypt
             user.PasswordHash = HashPassword(user.PasswordHash);
-            _context.Users.Add(user);
-            _context.SaveChanges();
-
-            return Ok("User registered successfully");
+            _userRepository.AddUser(user);
+            return Ok(new { Message = "User registered successfully" });
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] User user)
+        public IActionResult Login([FromBody] LoginRequest request)
         {
-            if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.PasswordHash))
+            var user = _userRepository.GetUserByUsername(request.Username);
+
+            if (user != null && VerifyPassword(request.Password, user.PasswordHash))
             {
-                return BadRequest("Username and password are required.");
+                HttpContext.Session.SetString("UserId", user.Id.ToString());
+                return Ok(new { Message = "Login successful" });
+            }
+            return Unauthorized(new { Message = "Credentials error" });
+        }
+
+        [HttpGet("session-status")]
+        public IActionResult GetSessionStatus()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (!string.IsNullOrEmpty(userId))
+            {
+                return Ok(new { IsAuthenticated = true, UserId = userId });
             }
 
-            var dbUser = _context.Users
-                .FirstOrDefault(u => u.Username == user.Username && u.PasswordHash == HashPassword(user.PasswordHash));
-
-            if (dbUser == null)
-            {
-                return Unauthorized("Invalid username or password");
-            }
-
-            return Ok("Login successful");
+            return Ok(new { IsAuthenticated = false });
         }
 
         private string HashPassword(string password)
@@ -74,5 +66,16 @@ namespace IdentityApi.Controllers
                 return Convert.ToBase64String(bytes);
             }
         }
+
+        private bool VerifyPassword(string password, string hashedPassword)
+        {
+            return HashPassword(password) == hashedPassword;
+        }
+    }
+
+    public class LoginRequest
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
     }
 }
