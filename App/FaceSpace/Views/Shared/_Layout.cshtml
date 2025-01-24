@@ -10,6 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body class="@($"{ViewContext.RouteData.Values["controller"]?.ToString().ToLower()}-{ViewContext.RouteData.Values["action"]?.ToString().ToLower()}")">
+    @using Microsoft.AspNetCore.Http
+    @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+    @{
+        var userId = HttpContextAccessor.HttpContext?.Request.Cookies["UserId"];
+        var username = HttpContextAccessor.HttpContext?.Request.Cookies["Username"];
+    }
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
             <div class="container-fluid">
@@ -22,7 +30,6 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div id="user-status"></div>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -40,12 +47,27 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Sign Up</a>
-                        </li>
+                        @if (!string.IsNullOrEmpty(userId)) // Użytkownik jest zalogowany
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @username <!-- Wyświetl nazwę użytkownika -->
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else // Użytkownik nie jest zalogowany
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Sign Up</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -57,20 +79,20 @@
     {
         <div id="particles-js" style="background: linear-gradient(to bottom, #000428, #004e92); width: 100%; height: calc(100% - 127px);">
         </div>
-      
+
         <main role="main" class="pb-3 home-container">
             @RenderBody()
         </main>
-       
+
     }
     else
-{
+    {
         <div class="container mt-3">
-        <main role="main" class="mb-3">
-            @RenderBody()
-        </main>
-    </div>
-}
+            <main role="main" class="mb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -83,18 +105,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-@section Scripts {
-    <script>
-            fetch('/api/auth/session-status', { credentials: 'include' })
-        .then(response => response.json())
-        .then(data => {
-            if (data.isAuthenticated) {
-                document.getElementById("user-status").innerText = "Zalogowany: ";
-            } else {
-                window.location.href = "/Account/Login";
-            }
-        });
-    </script>
-}
-

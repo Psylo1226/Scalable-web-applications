@@ -38,12 +38,30 @@ namespace IdentityApi.Controllers
         {
             var user = _userRepository.GetUserByUsername(request.Username);
 
-            if (user != null && VerifyPassword(request.Password, user.PasswordHash))
+            if (user == null || !VerifyPassword(request.Password, user.PasswordHash))
             {
-                HttpContext.Session.SetString("UserId", user.Id.ToString());
-                return Ok(new { Message = "Login successful" });
+                return Unauthorized(new { Message = "Invalid credentials" });
             }
-            return Unauthorized(new { Message = "Credentials error" });
+
+            // Ciasteczko z UserId
+            Response.Cookies.Append("UserId", user.Id.ToString(), new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.UtcNow.AddMinutes(30)
+            });
+
+            // Ciasteczko z Username
+            Response.Cookies.Append("Username", user.Username, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.UtcNow.AddMinutes(30)
+            });
+
+            return Ok(new { Message = "Login successful" });
         }
 
         [HttpGet("session-status")]

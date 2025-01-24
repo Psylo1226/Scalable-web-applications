@@ -14,5 +14,16 @@ namespace FaceSpace.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            // Usuń ciasteczka i wyczyść sesję
+            Response.Cookies.Delete("UserId");
+            Response.Cookies.Delete("Username");
+            HttpContext.Session.Clear();
+
+            // Przekierowanie na stronę główną
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

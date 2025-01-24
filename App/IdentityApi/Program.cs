@@ -9,7 +9,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -19,10 +19,13 @@ builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
+    options.AddPolicy("AllowFrontend", builder =>
+    {
+        builder.WithOrigins("https://localhost:5000") // Adres frontendu
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials(); // Wymagane dla ciasteczek
+    });
 });
 
 AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "App_Data"));
@@ -48,7 +51,9 @@ if (app.Environment.IsDevelopment())
 }
 app.UseSession();
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+app.UseStaticFiles();
+app.UseCors("AllowFrontend");
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
