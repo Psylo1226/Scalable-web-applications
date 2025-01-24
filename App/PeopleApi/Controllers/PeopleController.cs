@@ -1,16 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PeopleApi.Data;
+using PeopleApi.Models;
 using System.Text.Json;
 
 namespace PeopleApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class PeopleController : ControllerBase
-    {
-        [HttpGet]
-        public IActionResult Get()
+        [Route("api/people")]
+        public class PeopleController : ControllerBase
         {
-            return Ok("People API is running");
+            private readonly UserProfileRepository _repository;
+
+            public PeopleController(UserProfileRepository repository)
+            {
+                _repository = repository;
+            }
+
+            [HttpPost]
+            public IActionResult CreateProfile([FromBody] UserProfile profile)
+            {
+                _repository.AddProfile(profile);
+                return CreatedAtAction(nameof(GetProfile), new { id = profile.Id }, profile);
+            }
+
+            [HttpGet("{id}")]
+            public IActionResult GetProfile(int id)
+            {
+                var profile = _repository.GetProfileByUserId(id.ToString());
+                if (profile == null) return NotFound();
+
+                return Ok(profile);
+            }
         }
     }
-}

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PeopleApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1de8658dde0a928061ea3b49f2a25662ac0a405d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3db5cd5406956c53e2babd1713b49c5fcbbbeace")]
 [assembly: System.Reflection.AssemblyProductAttribute("PeopleApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PeopleApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
