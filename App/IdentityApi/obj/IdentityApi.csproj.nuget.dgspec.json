@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj": {}
+    "C:\\Visual_Studio\\Tworzenie skalowalnych aplikacji webowych\\git\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj": {
+    "C:\\Visual_Studio\\Tworzenie skalowalnych aplikacji webowych\\git\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj",
+        "projectUniqueName": "C:\\Visual_Studio\\Tworzenie skalowalnych aplikacji webowych\\git\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj",
         "projectName": "IdentityApi",
-        "projectPath": "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj",
-        "packagesPath": "C:\\Users\\staw2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\staw2\\source\\repos\\Scalable-web-applications\\App\\IdentityApi\\obj\\",
+        "projectPath": "C:\\Visual_Studio\\Tworzenie skalowalnych aplikacji webowych\\git\\Scalable-web-applications\\App\\IdentityApi\\IdentityApi.csproj",
+        "packagesPath": "C:\\Users\\KamilSarzyniak\\.nuget\\packages\\",
+        "outputPath": "C:\\Visual_Studio\\Tworzenie skalowalnych aplikacji webowych\\git\\Scalable-web-applications\\App\\IdentityApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\staw2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KamilSarzyniak\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -72,6 +72,10 @@
               "target": "Package",
               "version": "[9.0.1, )"
             },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.21.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -96,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
