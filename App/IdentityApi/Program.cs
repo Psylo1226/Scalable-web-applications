@@ -1,6 +1,8 @@
 using IdentityApi.Data;
 using Microsoft.EntityFrameworkCore;
 
+AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "App_Data"));
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

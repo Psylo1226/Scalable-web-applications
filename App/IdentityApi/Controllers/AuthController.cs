@@ -27,7 +27,6 @@ namespace IdentityApi.Controllers
                 return BadRequest(new { Message = "User already exists" });
             }
 
-            // Tu można dodać hashowanie hasła np. z użyciem BCrypt
             user.PasswordHash = HashPassword(user.PasswordHash);
             _userRepository.AddUser(user);
             return Ok(new { Message = "User registered successfully" });
