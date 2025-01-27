@@ -1,0 +1,76 @@
+version: '3.4'
+
+networks:
+  social_app:
+    driver: bridge
+
+services:
+
+  facespace:
+    image: ${DOCKER_REGISTRY-}facespace
+    build:
+      context: ./App/FaceSpace
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mssql_data
+
+  identityapi:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: ./App/IdentityApi
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5001
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mssql_data
+
+
+  peopleapi:
+    image: ${DOCKER_REGISTRY-}peopleapi
+    build:
+      context: ./App/PeopleApi
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5002
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mssql_data
+
+  postapi:
+    image: ${DOCKER_REGISTRY-}postapi
+    build:
+      context: ./App/PostApi
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5003
+    ports:
+      - "5003:5003"
+    depends_on:
+      - mssql_data
+
+  mssql_data:
+    image: mcr.microsoft.com/mssql-tools
+    environment:
+      - SA_PASSWORD=@1234
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
