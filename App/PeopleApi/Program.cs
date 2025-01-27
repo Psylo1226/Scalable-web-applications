@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using PeopleApi.Data;
 
+AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "App_Data"));
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
