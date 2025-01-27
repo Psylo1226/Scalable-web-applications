@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Nowy Profil",
+    "Projects": [
+      {
+        "Path": "App\\FaceSpace\\FaceSpace.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "App\\IdentityApi\\IdentityApi.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "App\\PostApi\\PostApi.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  }
+]
