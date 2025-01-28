@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PostApi.Data;
+using PostApi.Models;
 
 namespace PostApi.Controllers
 {
@@ -6,10 +9,33 @@ namespace PostApi.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Get()
+        private readonly PostDbContext _context;
+
+        public PostController(PostDbContext context)
         {
-            return Ok("Post API is running");
+            _context = context;
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetPostWithComments(int id)
+        {
+            var post = _context.Posts
+                .Include(p => p.Comments) // Pobierz post z komentarzami
+                .FirstOrDefault(p => p.Id == id);
+
+            if (post == null)
+                return NotFound();
+
+            return Ok(post);
+        }
+
+        [HttpPost]
+        public IActionResult CreatePost(Post post)
+        {
+            post.CreatedAt = DateTime.UtcNow;
+            _context.Posts.Add(post);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetPostWithComments), new { id = post.Id }, post);
         }
     }
 }
