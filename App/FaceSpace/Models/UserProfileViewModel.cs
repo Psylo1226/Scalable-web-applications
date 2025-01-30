@@ -58,9 +58,9 @@ namespace FaceSpace.Models
         };
 
         // Lista postów na timeline
-        public List<Post> TimelinePosts { get; set; } = new List<Post>
+        public List<FeedPost> TimelinePosts { get; set; } = new List<FeedPost>
         {
-            new Post
+            new FeedPost
             {
                 Author = "John Doe",
                 Content = "This is a sample post content. It can contain any text or links.",
@@ -72,7 +72,7 @@ namespace FaceSpace.Models
                     new Comment { Author = "Mark Johnson", Text = "Totally agree with you!" }
                 }
             },
-            new Post
+            new FeedPost
             {
                 Author = "John Doe",
                 Content = "Here's another post to fill the timeline!",

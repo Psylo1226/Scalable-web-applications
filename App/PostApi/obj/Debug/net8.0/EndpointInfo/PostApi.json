@@ -80,7 +80,7 @@
         }
       }
     },
-    "/api/Post": {
+    "/api/Post/addPost": {
       "post": {
         "tags": [
           "Post"

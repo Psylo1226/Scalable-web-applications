@@ -1,6 +1,9 @@
-﻿@model FaceSpace.Models.FeedModel
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
-
+@{
+    var userId = HttpContextAccessor.HttpContext?.Request.Cookies["UserId"];
+}
 <div class="container mt-4">
     <!-- Feed Header -->
     <h2 class="text-center mb-4">Post Feed</h2>
@@ -9,58 +12,55 @@
     <div class="card mb-5 shadow-sm">
         <div class="card-body">
             <h5 class="card-title text-center">Create a Post</h5>
-            <form method="post">
+            <form method="POST" id="addPost">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" class="form-control" required />
+                </div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="postContent" rows="3" placeholder="What's on your mind?"></textarea>
+                    <textarea class="form-control" id="postContent" name="postContent" rows="3" placeholder="What's on your mind?"></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Post</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">Post</button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 
-    <!-- Posts Section -->
-    <div id="posts">
-        @if (Model?.Posts != null && Model.Posts.Any())
-        {
-            @foreach (var post in Model.Posts)
-            {
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                        <span class="fw-bold">@post.Author</span>
-                        <small class="text-muted">@post.Timestamp.ToString("g")</small>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@post.Content</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button class="btn btn-outline-primary btn-sm">Like</button>
-                            <small class="text-muted">@post.Likes likes</small>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <h6 class="fw-bold mb-3">Comments</h6>
-                        <div class="comments mb-3">
-                            @foreach (var comment in post.Comments)
-                            {
-                                <div class="comment mb-2">
-                                    <strong>@comment.Author:</strong> @comment.Text
-                                </div>
-                            }
-                        </div>
-                        <form class="mt-3">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="commentContent" placeholder="Write a comment..." style="margin-bottom: 10px;">
-                                <button type="submit" class="btn btn-primary">Comment</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+@section Scripts {
+    <script>
+            async function submitForm() {
+            const form = document.getElementById('addPost');
+            const formData = new FormData(form);
+
+            var id = '@userId';
+
+            const feedPost = {
+                title: formData.get('title'),
+                content: formData.get('postContent'),
+                userId : id
+            };
+
+            const response = await fetch('https://localhost:5003/api/Post/addPost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(feedPost)
+            });
+
+            if (response.ok) {
+                // Handle success (e.g., clear form, show success message)
+                form.reset();
+                alert('Post created successfully!');
+            } else {
+                // Handle error
+                const errorText = await response.text();
+                alert('Failed to create post: ' + errorText);
             }
         }
-        else
-        {
-            <p class="text-center text-muted">No posts available. Start creating one!</p>
-        }
-    </div>
-</div>
+
+        document.getElementById('addPost').addEventListener('submit', submitForm);
+    </script>
+}

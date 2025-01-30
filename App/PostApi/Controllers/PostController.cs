@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using PostApi.Data;
 using PostApi.Models;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
 namespace PostApi.Controllers
 {
@@ -29,14 +31,25 @@ namespace PostApi.Controllers
             return Ok(post);
         }
 
-        [HttpPost]
-        public IActionResult CreatePost(Post post)
+        [HttpPost("addPost")]
+        public IActionResult CreatePost([FromBody] Post feedPost, [FromServices] IHttpClientFactory httpClientFactory)
         {
-            post.CreatedAt = DateTime.UtcNow;
+            var httpClient = httpClientFactory.CreateClient();
+
+            var post = new Post
+            {
+                Title = feedPost.Title,
+                Content = feedPost.Content,
+                CreatedAt = DateTime.UtcNow,
+                Likes = 0,
+                UserId = feedPost.UserId
+            };
+
             _context.Posts.Add(post);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetPostWithComments), new { id = post.Id }, post);
         }
+
         [HttpDelete("{id}")]
         public IActionResult DeletePost(int id)
         {
