@@ -19,7 +19,7 @@ namespace FaceSpace.Models
     }
 
     //// Model dla postów
-    public class Post
+    public class FeedPost
     {
         public string Author { get; set; } // Autor posta
         public string Content { get; set; } // Treść posta
