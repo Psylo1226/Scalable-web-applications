@@ -13,6 +13,10 @@
       {
         "Path": "App\\PostApi\\PostApi.csproj",
         "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "App\\PeopleApi\\PeopleApi.csproj",
+        "Action": "StartWithoutDebugging"
       }
     ]
   }

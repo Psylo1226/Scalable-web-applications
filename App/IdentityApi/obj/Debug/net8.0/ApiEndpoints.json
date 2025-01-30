@@ -33,6 +33,22 @@
   },
   {
     "ContainingType": "IdentityApi.Controllers.AuthController",
+    "Method": "SearchUsers",
+    "RelativePath": "api/auth/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IdentityApi.Controllers.AuthController",
     "Method": "GetSessionStatus",
     "RelativePath": "api/auth/session-status",
     "HttpMethod": "GET",

@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "ContainingType": "FaceSpace.Controllers.ProfileController",
+    "Method": "Index",
+    "RelativePath": "Profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FaceSpace.Controllers.ProfileController",
+    "Method": "UpdateProfile",
+    "RelativePath": "Profile",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "FaceSpace.Models.UserProfileViewModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

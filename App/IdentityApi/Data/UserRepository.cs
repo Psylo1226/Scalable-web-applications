@@ -21,5 +21,11 @@ namespace IdentityApi.Data
             _context.Users.Add(user);
             _context.SaveChanges();
         }
+        public List<User> SearchUsers(string query)
+        {
+            return _context.Users
+                .Where(u => u.Username.Contains(query))
+                .ToList();
+        }
     }
 }

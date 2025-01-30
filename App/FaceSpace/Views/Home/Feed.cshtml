@@ -1,37 +1,77 @@
-﻿@model FaceSpace.Models.FeedModel
-
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 <div class="container mt-4">
     <!-- Feed Header -->
     <h2 class="text-center mb-4">Post Feed</h2>
 
-    <!-- Create a New Post -->
-    <div class="card mb-5 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title text-center">Create a Post</h5>
-            <form method="post">
-                <div class="mb-3">
-                    <textarea class="form-control" id="postContent" rows="3" placeholder="What's on your mind?"></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Post</button>
-                </div>
-            </form>
-        </div>
+    <!-- Search Users -->
+    <div class="mb-4">
+        <input type="text" id="searchQuery" class="form-control" placeholder="Search users..." oninput="searchUsers()" />
+        <div id="searchResults" class="list-group mt-2"></div>
     </div>
 
-    <!-- Posts Section -->
-    <div id="posts">
-        @if (Model?.Posts != null && Model.Posts.Any())
-        {
-            @foreach (var post in Model.Posts)
-            {
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                        <span class="fw-bold">@post.Author</span>
-                        <small class="text-muted">@post.Timestamp.ToString("g")</small>
-                    </div>
+    <!-- User Posts -->
+    <div id="userPosts" class="mt-5">
+        <h3 class="text-center mb-4">User Posts</h3>
+        <div id="postsContainer"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let selectedUserId = null;
+
+        async function searchUsers() {
+            const query = document.getElementById('searchQuery').value;
+            if (query.length < 3) {
+                document.getElementById('searchResults').innerHTML = '';
+                return;
+            }
+
+            const response = await fetch(`https://localhost:5001/api/auth/search?query=${query}`);
+            const users = await response.json();
+
+            const searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = '';
+
+            for (const user of users) {
+                const profileResponse = await fetch(`https://localhost:5002/api/people/${user.id}`);
+                const profile = await profileResponse.json();
+
+                const firstName = profile.firstName || "Anonim";
+                const lastName = profile.lastName || "Anonim";
+
+                const userElement = document.createElement('a');
+                userElement.classList.add('list-group-item', 'list-group-item-action');
+                userElement.innerHTML = `${firstName} ${lastName} (${user.username})`;
+                userElement.href = '#';
+                userElement.onclick = (event) => {
+                    event.preventDefault();
+                    selectedUserId = user.id;
+                    loadUserPosts(selectedUserId);
+                    searchResults.innerHTML = ''; // Wyczyść listę wyników wyszukiwania
+                };
+                searchResults.appendChild(userElement);
+            }
+        }
+
+        async function loadUserPosts(userId) {
+            const response = await fetch(`https://localhost:5003/api/Post/user/${userId}`);
+            const posts = await response.json();
+
+            const postsContainer = document.getElementById('postsContainer');
+            postsContainer.innerHTML = '';
+
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('card', 'mb-3');
+                postElement.innerHTML = `
                     <div class="card-body">
+                        <h5 class="card-title">${post.title}</h5>
+                        <p class="card-text">${post.content}</p>
+                        <p class="card-text"><small class="text-muted">Posted on ${new Date(post.createdAt).toLocaleString()}</small></p>
+                        <button class="btn btn-primary" onclick="toggleLike(${post.id})">Lubię to (${post.likes})</button>
                         <p class="card-text">@post.Content</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <button class="btn btn-outline-primary btn-sm">Like</button>
@@ -65,12 +105,28 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+        }
+
+        async function toggleLike(postId) {
+            if (!selectedUserId) {
+                alert('Please select a user first.');
+                return;
+            }
+
+            const response = await fetch(`https://localhost:5003/api/Post/like/${postId}?userId=${selectedUserId}`, {
+                method: 'PUT'
+            });
+
+            if (response.ok) {
+                loadUserPosts(selectedUserId);
+            } else {
+                const errorText = await response.text();
+                alert('Failed to like/unlike post: ' + errorText);
             }
         }
-        else
-        {
-            <p class="text-center text-muted">No posts available. Start creating one!</p>
-        }
-    </div>
-</div>
+    </script>
+}
+

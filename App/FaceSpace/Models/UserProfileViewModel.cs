@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace FaceSpace.Models
 {
+    public class UserProfile
+    {
+        public string UserId { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string AvatarUrl { get; set; } = string.Empty;
+    }
     // Model dla komentarzy
     public class Comment
     {
@@ -10,8 +18,8 @@ namespace FaceSpace.Models
         public string Text { get; set; } // Treść komentarza
     }
 
-    // Model dla postów
-    public class Post
+    //// Model dla postów
+    public class FeedPost
     {
         public string Author { get; set; } // Autor posta
         public string Content { get; set; } // Treść posta
@@ -23,7 +31,8 @@ namespace FaceSpace.Models
     // Model profilu użytkownika
     public class UserProfileViewModel
     {
-        public string Name { get; set; } = "John Doe"; // Imię i nazwisko użytkownika
+        public string FirstName { get; set; } = "John";
+        public string LastName { get; set; } = "Doe";
         public string Description { get; set; } = "Welcome to your profile!"; // Opis profilu
         public string SelectedAvatar { get; set; } = "/img/avatar1.png"; // Wybrany awatar
         public List<string> AvatarOptions { get; set; } = new List<string> // Dostępne awatary
@@ -49,9 +58,9 @@ namespace FaceSpace.Models
         };
 
         // Lista postów na timeline
-        public List<Post> TimelinePosts { get; set; } = new List<Post>
+        public List<FeedPost> TimelinePosts { get; set; } = new List<FeedPost>
         {
-            new Post
+            new FeedPost
             {
                 Author = "John Doe",
                 Content = "This is a sample post content. It can contain any text or links.",
@@ -63,7 +72,7 @@ namespace FaceSpace.Models
                     new Comment { Author = "Mark Johnson", Text = "Totally agree with you!" }
                 }
             },
-            new Post
+            new FeedPost
             {
                 Author = "John Doe",
                 Content = "Here's another post to fill the timeline!",

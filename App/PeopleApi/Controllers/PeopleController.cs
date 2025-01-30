@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PeopleApi.Data;
 using PeopleApi.Models;
 using System.Text.Json;
@@ -16,20 +17,45 @@ namespace PeopleApi.Controllers
                 _repository = repository;
             }
 
-            [HttpPost]
-            public IActionResult CreateProfile([FromBody] UserProfile profile)
+        [HttpPost]
+        public IActionResult CreateProfile([FromBody] UserProfile profile)
+        {
+            if (string.IsNullOrEmpty(profile.UserId))
             {
-                _repository.AddProfile(profile);
-                return CreatedAtAction(nameof(GetProfile), new { id = profile.Id }, profile);
+                return BadRequest(new { Message = "UserId is required" });
             }
 
-            [HttpGet("{id}")]
-            public IActionResult GetProfile(int id)
-            {
+            _repository.AddProfile(profile);
+            return CreatedAtAction(nameof(GetProfile), new { id = profile.UserId }, profile);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProfile(int id)
+        {
                 var profile = _repository.GetProfileByUserId(id.ToString());
                 if (profile == null) return NotFound();
 
                 return Ok(profile);
-            }
         }
+        [HttpGet("search")]
+        public IActionResult SearchUsers(string query)
+        {
+            var users = _repository.SearchUsers(query)
+                .Select(u => new { u.UserId, u.FirstName, u.LastName, u.AvatarUrl })
+                .ToList();
+
+            return Ok(users);
+        }
+        [HttpPut("{id}")]
+        public IActionResult UpdateProfile(string id, [FromBody] UserProfile profile)
+        {
+            if (profile == null || id != profile.UserId)
+            {
+                return BadRequest(new { Message = "Invalid profile data." });
+            }
+
+            _repository.UpdateProfile(profile); // Aktualizacja w bazie danych
+            return Ok(new { Message = "Profile updated successfully!" });
+        }
+    }
     }

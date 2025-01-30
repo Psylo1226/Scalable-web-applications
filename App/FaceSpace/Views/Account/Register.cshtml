@@ -40,6 +40,10 @@
             };
 
             try {
+				if (user.confirmPassword !== user.passwordHash) {
+					alert('Passwords do not match!');
+					return;
+				}
                 const response = await fetch('https://localhost:5001/api/Auth/register', {
                     method: 'POST',
                     headers: {

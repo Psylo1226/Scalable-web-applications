@@ -2,6 +2,7 @@
 using IdentityApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -20,8 +21,8 @@ namespace IdentityApi.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User user)
-        {
+        public async Task<IActionResult> Register([FromBody] User user, [FromServices] IHttpClientFactory httpClientFactory)
+            {
             if (_userRepository.GetUserByUsername(user.Username) != null)
             {
                 return BadRequest(new { Message = "User already exists" });
@@ -29,6 +30,25 @@ namespace IdentityApi.Controllers
 
             user.PasswordHash = HashPassword(user.PasswordHash);
             _userRepository.AddUser(user);
+
+            var httpClient = httpClientFactory.CreateClient();
+            var defaultProfile = new
+            {
+
+                UserId = user.Id.ToString(), // Powiązanie profilu z użytkownikiem
+                FirstName = "",
+                LastName = "",
+                Description = "New user",
+                AvatarUrl = ""
+            };
+
+            var response = await httpClient.PostAsJsonAsync("https://localhost:5002/api/people", defaultProfile);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return StatusCode(500, new { Message = "User created, but failed to create user profile." });
+            }
+
             return Ok(new { Message = "User registered successfully" });
         }
 
@@ -82,6 +102,15 @@ namespace IdentityApi.Controllers
                 var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
                 return Convert.ToBase64String(bytes);
             }
+        }
+        [HttpGet("search")]
+        public IActionResult SearchUsers(string query)
+        {
+            var users = _userRepository.SearchUsers(query)
+                .Select(u => new { u.Id, u.Username, u.Email})
+                .ToList();
+
+            return Ok(users);
         }
 
         private bool VerifyPassword(string password, string hashedPassword)
