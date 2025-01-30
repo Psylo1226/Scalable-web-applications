@@ -103,6 +103,15 @@ namespace IdentityApi.Controllers
                 return Convert.ToBase64String(bytes);
             }
         }
+        [HttpGet("search")]
+        public IActionResult SearchUsers(string query)
+        {
+            var users = _userRepository.SearchUsers(query)
+                .Select(u => new { u.Id, u.Username, u.Email})
+                .ToList();
+
+            return Ok(users);
+        }
 
         private bool VerifyPassword(string password, string hashedPassword)
         {

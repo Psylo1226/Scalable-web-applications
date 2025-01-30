@@ -51,5 +51,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PeopleApi.Controllers.PeopleController",
+    "Method": "SearchUsers",
+    "RelativePath": "api/people/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

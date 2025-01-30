@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PeopleApi.Data;
 using PeopleApi.Models;
 using System.Text.Json;
@@ -35,6 +36,15 @@ namespace PeopleApi.Controllers
                 if (profile == null) return NotFound();
 
                 return Ok(profile);
+        }
+        [HttpGet("search")]
+        public IActionResult SearchUsers(string query)
+        {
+            var users = _repository.SearchUsers(query)
+                .Select(u => new { u.UserId, u.FirstName, u.LastName, u.AvatarUrl })
+                .ToList();
+
+            return Ok(users);
         }
         [HttpPut("{id}")]
         public IActionResult UpdateProfile(string id, [FromBody] UserProfile profile)

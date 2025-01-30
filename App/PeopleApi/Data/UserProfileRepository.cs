@@ -27,5 +27,11 @@ namespace PeopleApi.Data
             _context.UserProfiles.Update(profile);
             _context.SaveChanges();
         }
+        public List<UserProfile> SearchUsers(string query)
+        {
+            return _context.UserProfiles
+                .Where(u => u.FirstName.Contains(query) || u.LastName.Contains(query))
+                .ToList();
+        }
     }
 }
