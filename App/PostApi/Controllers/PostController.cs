@@ -30,6 +30,16 @@ namespace PostApi.Controllers
 
             return Ok(post);
         }
+        [HttpGet("user/{userId}")]
+        public IActionResult GetUserPosts(string userId)
+        {
+            var posts = _context.Posts
+                .Where(p => p.UserId == userId)
+                .OrderByDescending(p => p.CreatedAt)
+                .ToList();
+
+            return Ok(posts);
+        }
 
         [HttpPost("addPost")]
         public IActionResult CreatePost([FromBody] Post feedPost, [FromServices] IHttpClientFactory httpClientFactory)
@@ -49,8 +59,34 @@ namespace PostApi.Controllers
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetPostWithComments), new { id = post.Id }, post);
         }
+        [HttpPut("like/{id}")]
+        public IActionResult ToggleLike(int id, [FromQuery] string userId)
+        {
+            var post = _context.Posts.Find(id);
+            if (post == null)
+                return NotFound();
 
-        [HttpDelete("{id}")]
+            var postLike = _context.PostLikes.FirstOrDefault(pl => pl.PostId == id && pl.UserId == userId);
+            if (postLike == null)
+            {
+                // Add like
+                post.Likes += 1;
+                _context.PostLikes.Add(new PostLike { PostId = id, UserId = userId });
+            }
+            else
+            {
+                // Remove like
+                post.Likes -= 1;
+                _context.PostLikes.Remove(postLike);
+            }
+
+            _context.Posts.Update(post);
+            _context.SaveChanges();
+
+            return Ok(post);
+        }
+
+        [HttpDelete("delete/{id}")]
         public IActionResult DeletePost(int id)
         {
             var post = _context.Posts.Find(id);
