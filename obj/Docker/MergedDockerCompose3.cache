@@ -1,0 +1,111 @@
+name: dockercompose14591777583572498744
+services:
+  facespace:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\FaceSpace
+      dockerfile: Dockerfile
+    depends_on:
+      mssql_data:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+      ASPNETCORE_URLS: http://+:5000
+    image: facespace
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5000
+      published: "5000"
+      protocol: tcp
+    - mode: ingress
+      target: 8080
+      protocol: tcp
+    - mode: ingress
+      target: 8081
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming/Microsoft/UserSecrets
+      target: /home/app/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming/ASP.NET/Https
+      target: /home/app/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  identityapi:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\IdentityApi
+      dockerfile: Dockerfile
+    depends_on:
+      mssql_data:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5001
+    image: identityapi
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5001
+      published: "5001"
+      protocol: tcp
+  mssql_data:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: '@MSSql1234'
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "1433"
+      protocol: tcp
+  peopleapi:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PeopleApi
+      dockerfile: Dockerfile
+    depends_on:
+      mssql_data:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5002
+    image: peopleapi
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5002
+      published: "5002"
+      protocol: tcp
+  postapi:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PostApi
+      dockerfile: Dockerfile
+    depends_on:
+      mssql_data:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5003
+    image: postapi
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5003
+      published: "5003"
+      protocol: tcp
+networks:
+  social_app:
+    name: dockercompose14591777583572498744_social_app
+    driver: bridge

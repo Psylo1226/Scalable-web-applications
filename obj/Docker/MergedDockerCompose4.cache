@@ -1,0 +1,454 @@
+name: dockercompose14591777583572498744
+services:
+  facespace:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\FaceSpace
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+        LAUNCHING_FROM_VS: "true"
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: FaceSpace
+      target: base
+    container_name: FaceSpace_1
+    depends_on:
+      mssql_data:
+        condition: service_started
+    entrypoint:
+    - dotnet
+    - --roll-forward
+    - Major
+    - /VSTools/DistrolessHelper/DistrolessHelper.dll
+    - --wait
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: http://+:5000
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /.nuget/fallbackpackages
+    image: facespace:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /.nuget/packages
+        --additionalProbingPath /.nuget/fallbackpackages  "/app/bin/Debug/net8.0/FaceSpace.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major
+        /VSTools/DistrolessHelper/DistrolessHelper.dll --stop dotnet
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5000
+      published: "5000"
+      protocol: tcp
+    - mode: ingress
+      target: 8080
+      protocol: tcp
+    - mode: ingress
+      target: 8081
+      protocol: tcp
+    tty: true
+    volumes:
+    - type: bind
+      source: C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages
+      target: /.nuget/fallbackpackages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\.nuget\packages
+      target: /.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\HotReload
+      target: /HotReloadAgent
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\linux-x64\net8.0
+      target: /VSTools
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\FaceSpace
+      target: /app
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /home/app/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /home/app/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\vsdbg\vs2017u5
+      target: /remote_debugger
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\FaceSpace
+      target: /src
+      bind:
+        create_host_path: true
+  identityapi:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\IdentityApi
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+        LAUNCHING_FROM_VS: "true"
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: IdentityApi
+      target: base
+    container_name: IdentityApi
+    depends_on:
+      mssql_data:
+        condition: service_started
+    entrypoint:
+    - dotnet
+    - --roll-forward
+    - Major
+    - /VSTools/DistrolessHelper/DistrolessHelper.dll
+    - --wait
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: http://+:5001
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /.nuget/fallbackpackages
+    image: identityapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /.nuget/packages
+        --additionalProbingPath /.nuget/fallbackpackages  "/app/bin/Debug/net8.0/IdentityApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major
+        /VSTools/DistrolessHelper/DistrolessHelper.dll --stop dotnet
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5001
+      published: "5001"
+      protocol: tcp
+    tty: true
+    volumes:
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\IdentityApi
+      target: /app
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\IdentityApi
+      target: /src
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\vsdbg\vs2017u5
+      target: /remote_debugger
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\.nuget\packages
+      target: /.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages
+      target: /.nuget/fallbackpackages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /home/app/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /home/app/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\linux-x64\net8.0
+      target: /VSTools
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\HotReload
+      target: /HotReloadAgent
+      read_only: true
+      bind:
+        create_host_path: true
+  mssql_data:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: '@MSSql1234'
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "1433"
+      protocol: tcp
+  peopleapi:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PeopleApi
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+        LAUNCHING_FROM_VS: "true"
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: PeopleApi
+      target: base
+    container_name: PeopleApi
+    depends_on:
+      mssql_data:
+        condition: service_started
+    entrypoint:
+    - dotnet
+    - --roll-forward
+    - Major
+    - /VSTools/DistrolessHelper/DistrolessHelper.dll
+    - --wait
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: http://+:5002
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /.nuget/fallbackpackages
+    image: peopleapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /.nuget/packages
+        --additionalProbingPath /.nuget/fallbackpackages  "/app/bin/Debug/net8.0/PeopleApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major
+        /VSTools/DistrolessHelper/DistrolessHelper.dll --stop dotnet
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5002
+      published: "5002"
+      protocol: tcp
+    tty: true
+    volumes:
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PeopleApi
+      target: /app
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PeopleApi
+      target: /src
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\vsdbg\vs2017u5
+      target: /remote_debugger
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\.nuget\packages
+      target: /.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages
+      target: /.nuget/fallbackpackages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /home/app/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /home/app/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\linux-x64\net8.0
+      target: /VSTools
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\HotReload
+      target: /HotReloadAgent
+      read_only: true
+      bind:
+        create_host_path: true
+  postapi:
+    build:
+      context: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PostApi
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+        LAUNCHING_FROM_VS: "true"
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: PostApi
+      target: base
+    container_name: PostApi
+    depends_on:
+      mssql_data:
+        condition: service_started
+    entrypoint:
+    - dotnet
+    - --roll-forward
+    - Major
+    - /VSTools/DistrolessHelper/DistrolessHelper.dll
+    - --wait
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: http://+:5003
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /.nuget/fallbackpackages
+    image: postapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /.nuget/packages
+        --additionalProbingPath /.nuget/fallbackpackages  "/app/bin/Debug/net8.0/PostApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major
+        /VSTools/DistrolessHelper/DistrolessHelper.dll --stop dotnet
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      social_app: null
+    ports:
+    - mode: ingress
+      target: 5003
+      published: "5003"
+      protocol: tcp
+    tty: true
+    volumes:
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PostApi
+      target: /app
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Visual_Studio\Tworzenie skalowalnych aplikacji webowych\git\Scalable-web-applications\App\PostApi
+      target: /src
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\vsdbg\vs2017u5
+      target: /remote_debugger
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\.nuget\packages
+      target: /.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages
+      target: /.nuget/fallbackpackages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\ASP.NET\Https
+      target: /home/app/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\KamilSarzyniak\AppData\Roaming\Microsoft\UserSecrets
+      target: /home/app/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\linux-x64\net8.0
+      target: /VSTools
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\HotReload
+      target: /HotReloadAgent
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  social_app:
+    name: dockercompose14591777583572498744_social_app
+    driver: bridge

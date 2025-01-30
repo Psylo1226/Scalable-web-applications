@@ -1,4 +1,12 @@
+// using Microsoft.AspNetCore.DataProtection;
+// using System.IO;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// builder.Services.AddDataProtection()
+//     .PersistKeysToFileSystem(new DirectoryInfo("/app/DataProtection-Keys"))
+//     .SetApplicationName("SocialApp");
+//     .SetDefaultKeyLifetime(TimeSpan.FromDays(90));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
