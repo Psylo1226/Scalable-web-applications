@@ -1,12 +1,20 @@
 ﻿@model FaceSpace.Models.UserProfileViewModel
 
+@section Styles {
+    <style>
+        .selected-avatar {
+            border: 3px solid #007bff;
+        }
+    </style>
+}
+
+
 <div class="container mt-4">
-    <!-- Nagłówek profilu -->
     <div class="d-flex align-items-center justify-content-between profile-header">
         <div class="d-flex align-items-center">
             <img src="@Model.SelectedAvatar" alt="Profile Avatar" class="rounded-circle border" style="width: 100px; height: 100px;" />
             <div class="ms-3">
-                <h2>@Model.Name</h2>
+                <h2>@Model.FirstName @Model.LastName</h2>
                 <p class="text-muted">@Model.Description</p>
             </div>
         </div>
@@ -23,7 +31,7 @@
                     <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post">
+                <form asp-action="UpdateProfile" method="post">
                     <div class="modal-body">
                         <!-- Wybór awatara -->
                         <div class="mb-3">
@@ -39,10 +47,20 @@
                             </div>
                         </div>
 
+                        <!-- Edycja imienia i nazwiska -->
+                        <div class="mb-3">
+                            <label for="Name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" asp-for="FirstName" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" asp-for="LastName" />
+                        </div>
+
                         <!-- Edycja opisu -->
                         <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="Description" rows="3">@Model.Description</textarea>
+                            <label for="Description" class="form-label">Description</label>
+                            <textarea class="form-control" asp-for="Description" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -53,6 +71,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <!-- Zakładki -->
     <div class="profile-tabs mt-4">
@@ -140,3 +159,55 @@
 
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.querySelector('form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {};
+
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                window.location.href = response.url;
+            } else {
+                console.error('Failed to update profile');
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const avatarOptions = document.querySelectorAll('.avatar-option');
+
+            avatarOptions.forEach(option => {
+                const radioInput = option.querySelector('input[type="radio"]');
+                const img = option.querySelector('img');
+
+                option.addEventListener('click', function () {
+                    // Odznaczenie innych obrazków
+                    avatarOptions.forEach(o => o.classList.remove('selected-avatar'));
+
+                    // Zaznaczenie wybranego obrazka
+                    option.classList.add('selected-avatar');
+                    radioInput.checked = true;
+                });
+                if (radioInput.checked) {
+                    option.classList.add('selected-avatar');
+                }
+            });
+        });
+    </script>
+}

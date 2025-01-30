@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceSpace", "App\FaceSpace\FaceSpace.csproj", "{8A196602-2097-4742-8808-6D71ABC32E0A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0AFB3591-04D7-4765-B104-37C0BFF60D57} = {0AFB3591-04D7-4765-B104-37C0BFF60D57}
+		{5AC74A95-FD36-417D-A77D-A43406E5979E} = {5AC74A95-FD36-417D-A77D-A43406E5979E}
+		{A23C44EF-FE5A-41F2-B745-C7C5A8E72E8B} = {A23C44EF-FE5A-41F2-B745-C7C5A8E72E8B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityApi", "App\IdentityApi\IdentityApi.csproj", "{5AC74A95-FD36-417D-A77D-A43406E5979E}"
 EndProject

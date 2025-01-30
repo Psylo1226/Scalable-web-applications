@@ -27,7 +27,6 @@ C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\ne
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FaceSpace.props
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FaceSpace.props
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\FaceSpace.dll
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\refint\FaceSpace.dll
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\FaceSpace.pdb
@@ -535,3 +534,4 @@ C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\bin\Debug\ne
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\staw2\source\repos\Scalable-web-applications\App\FaceSpace\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

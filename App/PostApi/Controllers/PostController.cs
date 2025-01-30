@@ -20,7 +20,7 @@ namespace PostApi.Controllers
         public IActionResult GetPostWithComments(int id)
         {
             var post = _context.Posts
-                .Include(p => p.Comments) // Pobierz post z komentarzami
+                .Include(p => p.Comments)
                 .FirstOrDefault(p => p.Id == id);
 
             if (post == null)
@@ -36,6 +36,16 @@ namespace PostApi.Controllers
             _context.Posts.Add(post);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetPostWithComments), new { id = post.Id }, post);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeletePost(int id)
+        {
+            var post = _context.Posts.Find(id);
+            if (post == null)
+                return NotFound();
+            _context.Posts.Remove(post);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }

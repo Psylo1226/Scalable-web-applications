@@ -180,3 +180,4 @@ C:\Users\staw2\source\repos\Scalable-web-applications\App\PostApi\bin\Debug\net8
 C:\Users\staw2\source\repos\Scalable-web-applications\App\PostApi\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\staw2\source\repos\Scalable-web-applications\App\PostApi\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 C:\Users\staw2\source\repos\Scalable-web-applications\App\PostApi\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\staw2\source\repos\Scalable-web-applications\App\PostApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
