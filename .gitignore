@@ -1,1 +1,4 @@
 .vs/
+# Ignoruj foldery bin i obj
+bin/
+obj/
