@@ -1,0 +1,104 @@
+version: '3.4'
+
+networks:
+  social_app:
+    driver: bridge
+
+services:
+
+  facespace:
+    image: ${DOCKER_REGISTRY-}facespace
+    build:
+      context: ./App/FaceSpace
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+    volumes:
+      - ./data-protection-keys:/root/.aspnet/DataProtection-Keys
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mssql_data
+      - identityapi
+      - peopleapi
+      - postapi
+
+
+  identityapi:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: ./App/IdentityApi
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5001
+      - ConnectionStrings__SqlServerConnection="Server=mssql_data,1433;Database=db;User Id=sa;Password=MSSql1234;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=True"
+      - Jwt__Key=77b07e5dd67d6ecebe73feae05ae8c151a5fc43de592e3ba4bdf187b09df4fcc5fdf69b0abf6514a5a0d1e9116fc6e3e35f7bb846c54062c5a339ed42694ce05
+      - Jwt__Issuer=IdentityApi
+      - Jwt__Audience=FaceSpace
+    volumes:
+      - ./data-protection-keys:/root/.aspnet/DataProtection-Keys
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mssql_data
+
+
+  peopleapi:
+    image: ${DOCKER_REGISTRY-}peopleapi
+    build:
+      context: ./App/PeopleApi
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5002
+      - ConnectionStrings__SqlServerConnection="Server=mssql_data,1433;Database=db;User Id=sa;Password=MSSql1234;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=True"
+    volumes:
+      - ./data-protection-keys:/root/.aspnet/DataProtection-Keys
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mssql_data
+
+  postapi:
+    image: ${DOCKER_REGISTRY-}postapi
+    build:
+      context: ./App/PostApi
+      dockerfile: Dockerfile
+    networks:
+      - social_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5003
+      - ConnectionStrings__SqlServerConnection="Server=mssql_data,1433;Database=db;User Id=sa;Password=MSSql1234;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=True"
+    volumes:
+      - ./data-protection-keys:/root/.aspnet/DataProtection-Keys
+    ports:
+      - "5003:5003"
+    depends_on:
+      - mssql_data
+
+  mssql_data:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - social_app
+    environment:
+      - SA_PASSWORD=MSSql1234
+      - ACCEPT_EULA=Y
+    volumes:
+      - mssql-data:/var/opt/mssql
+    ports:
+      - "1433:1433"
+
+volumes:
+  mssql-data:
+    driver: local
+  data-protection-keys:
+    driver: local
